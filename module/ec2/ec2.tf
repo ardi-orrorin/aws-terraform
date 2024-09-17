@@ -1,7 +1,10 @@
+resource "aws_key_pair" "ec2_key_pair" {
+    key_name   = var.aws_ec2_key_pair
+    public_key = file(var.public_key)
+}
 
-variable "instance_type" {
-    default = "t2.micro"
-    description = "인스턴스 타입"
+data "aws_key_pair" "anamensis-key" {
+    key_name = aws_key_pair.ec2_key_pair.key_name
 }
 
 data "aws_ami" "ubuntu_latest" {
@@ -30,18 +33,14 @@ data "aws_subnets" "aws_subnet_default" {
     # 
 # }
 
-data "aws_key_pair" "anamensis-key" {
-    key_name = "anamensis"
-}
-
 resource "aws_instance" "anamensis-test" {
     depends_on = [ aws_default_vpc.default ]
     ami = data.aws_ami.ubuntu_latest.id
     
     instance_type = var.instance_type
     associate_public_ip_address = true
-    subnet_id = data.aws_subnets.aws_subnet_default.ids[0]
-    security_groups = [ "sg-0692b78ccc2a6aab6", "sg-0b662da6229216810" ]
+    # subnet_id = data.aws_subnets.aws_subnet_default.ids[0]
+    # security_groups = [ "sg-0692b78ccc2a6aab6", "sg-0b662da6229216810" ]
     key_name = data.aws_key_pair.anamensis-key.key_name
     lifecycle {
         create_before_destroy = true
