@@ -18,14 +18,29 @@ module "security_group" {
 }
 
 module "ec2" {
-    depends_on = [ module.security_group ]
-    source = "./module/ec2"
-    security_group_id = module.security_group.id
-    key_pair_name = module.key_pair.key_pair_name
-    public_key = module.key_pair.key_pair_public_key
-    instance_type = var.instance_type
-    project_name = var.project_name
+  depends_on = [ module.security_group ]
+  source = "./module/ec2"
+  security_group_id = module.security_group.id
+  key_pair_name = module.key_pair.key_pair_name
+  public_key = module.key_pair.key_pair_public_key
+  instance_type = var.instance_type
+  project_name = var.project_name
+  region = var.region
 }
+
+
+# module "rds" {
+#   depends_on = [ module.ec2 ]
+#   source = "./module/rds"
+#   project_name = var.project_name
+#   master_username = var.rds_master_username
+#   master_password = var.rds_master_password
+#   db_engine = var.rds_db_engine
+#   engine_version = var.rds_engine_version
+#   instance_class = var.rds_instance_class
+#   region = var.region
+#   security_group_id = module.security_group.id
+# }
 
 
 output "security_group" {
@@ -35,3 +50,7 @@ output "security_group" {
 output "ec2" {
   value = module.ec2
 }
+
+# output "rds" {
+#   value = module.rds
+# }

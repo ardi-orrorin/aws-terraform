@@ -24,6 +24,8 @@ resource "aws_instance" "instance_test" {
     depends_on = [ aws_default_vpc.default ]
     ami = data.aws_ami.ubuntu_latest.id
     
+    availability_zone = "${var.region}a"
+    
     instance_type = var.instance_type
     associate_public_ip_address = true
     
@@ -33,7 +35,7 @@ resource "aws_instance" "instance_test" {
 
     ebs_block_device {
         device_name = "/dev/sda1"
-        volume_size = 10
+        volume_size = 20
         volume_type = "gp3"
         delete_on_termination = true
         tags = {
@@ -41,8 +43,11 @@ resource "aws_instance" "instance_test" {
         }
     }
 
+
     lifecycle {
+        # prevent_destroy = true
         create_before_destroy = false
+        ignore_changes = [ ebs_block_device ]
     }
 
     tags = {
