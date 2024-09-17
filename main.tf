@@ -1,3 +1,8 @@
+provider "aws" {
+    region     = var.region
+    access_key = var.aws_access_key
+    secret_key = var.aws_secret_key
+}
 
 module "key_pair" {
     source = "./module/key_pair"
@@ -9,6 +14,7 @@ module "key_pair" {
 module "security_group" {
   source = "./module/security_group"
   project_name = var.project_name
+  myself_ip = var.myself_ip
 }
 
 module "ec2" {
