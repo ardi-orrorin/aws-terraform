@@ -3,3 +3,5 @@ variable "myself_ip" {
     description = "Myself IP"
     default = "125.129.25.178/32"
 }
+
+variable "project_name" {}

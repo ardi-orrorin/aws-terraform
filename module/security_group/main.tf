@@ -1,9 +1,9 @@
 resource "aws_security_group" "example_security_group" {
-    name = "example-security-group"
+    name = "${var.project_name}-security-group"
     description = "Allow inbound traffic"
 
     tags = {
-        Name = "example-security-group"
+        Name = "${var.project_name}-security-group"
     }   
 }
 

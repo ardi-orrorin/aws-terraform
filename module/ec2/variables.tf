@@ -1,6 +1,5 @@
 variable "instance_type" {
-    default = "t2.micro"
-    description = "인스턴스 타입"
+    type = string
 }
 
 variable "security_group_id" {
@@ -14,3 +13,5 @@ variable "key_pair_name" {
 variable "public_key" {
     type = string
 }
+
+variable "project_name" {}

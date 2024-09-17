@@ -1,6 +1,6 @@
 resource "aws_default_vpc" "default" {
     tags = {
-        Name = "test-vpc"
+        Name = "${var.project_name}-vpc"
     }
 }
 
@@ -37,16 +37,16 @@ resource "aws_instance" "instance_test" {
         volume_type = "gp3"
         delete_on_termination = true
         tags = {
-            Name = "test"
+            Name = "${var.project_name}-ebs_volume"
         }
     }
 
     lifecycle {
-        create_before_destroy = true
+        create_before_destroy = false
     }
 
     tags = {
-        Name = "anamensis-test"
+        Name = "${var.project_name}-instance"
     }
 
     connection {
@@ -57,15 +57,18 @@ resource "aws_instance" "instance_test" {
     }
 
     provisioner "file" {
-        source = "./module/ec2/data/install_docker.sh"
-        destination = "install_docker.sh"
+        source = "./module/ec2/data"
+        destination = "data"
+        
     }
 
     provisioner "remote-exec" {
         inline = [
-            "chmod +x install_docker.sh",
-            "./install_docker.sh",
+            "chmod +x ./data/install_docker.sh",
+            "./data/install_docker.sh",
             "sudo docker swarm init",
+            "chmod +x ./data/swap-setting.sh",
+            "./data/swap-setting.sh"
         ]
     }
 }
