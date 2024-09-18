@@ -24,9 +24,7 @@ data "aws_iam_policy_document" "default" {
 }
 
 resource "aws_s3_bucket" "default" {
-  bucket = "${var.project_name}-bucket-123"
-  
-
+  bucket = "${var.project_name}-bucket"
 
   tags = {
     Name        = "${var.project_name}-bucket"

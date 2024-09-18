@@ -28,7 +28,6 @@ module "ec2" {
   private_key       = var.private_key
 }
 
-
 module "rds" {
   depends_on        = [ module.ec2 ]
   source            = "./module/rds"
@@ -50,16 +49,16 @@ module "s3" {
   availability_zone = var.availability_zone
 }
 
-module "elastic_cache" {
-  depends_on        = [ module.security_group ]
-  source            = "./module/elastic_cache"
-  project_name      = var.project_name
-  region            = var.region
-  security_group_id = module.security_group.id
-  node_type         = var.elastic_cache_node_type
-  engine            = var.elastic_cache_engine
-  availability_zone = var.availability_zone
-}
+# module "elastic_cache" {
+#   depends_on        = [ module.security_group ]
+#   source            = "./module/elastic_cache"
+#   project_name      = var.project_name
+#   region            = var.region
+#   security_group_id = module.security_group.id
+#   node_type         = var.elastic_cache_node_type
+#   engine            = var.elastic_cache_engine
+#   availability_zone = var.availability_zone
+# }
 
 # module "cloudfront" {
 #   depends_on         = [ module.s3 ]

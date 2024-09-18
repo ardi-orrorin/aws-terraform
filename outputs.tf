@@ -16,9 +16,9 @@ output "s3" {
 }
 
 
-output "elastic_cache" {
-  value = module.elastic_cache
-}
+# output "elastic_cache" {
+#   value = module.elastic_cache
+# }
 
 # # output "cloudfront" {
 # #   value = module.cloudfront
