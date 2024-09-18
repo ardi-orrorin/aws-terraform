@@ -1,36 +1,21 @@
-aws_access_key = "sdflsdivjlsdijvlisdj"
-aws_secret_key = "sdv;l;sidvjlsdivjsldivjsdlivjsdlvdsv"
-myself_ip = "1.1.1.1/32"
+aws_access_key            = "aws_access_key"
+aws_secret_key            = "aws_secret_key"
+project_name              = "myproject"
+allow_ssh_ip              = "0.0.0.0/0"
+aws_ec2_key_pair_key_name = "ec2_key_pair"
+region                    = "ap-northeast-2"
+availability_zone         = ["ap-northeast-2a"]
+ec2_instance_type         = "t2.micro"
+rds_db_engine             = "postgres"
+rds_engine_version        = "16.3"
+rds_instance_class        = "db.t3.micro"
+rds_master_username       = "postgres"
+rds_master_password       = "rootroot"
+elastic_cache_node_type   = "cache.t2.micro"
+elastic_cache_engine      = "redis"
+
 private_key = <<EOF
 -----BEGIN RSA PRIVATE KEY-----
-1111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111
-11111111111111111111111111
+1111111111111111111111111111111111111111111111111111111111111111
 -----END RSA PRIVATE KEY-----
 EOF
-
-
-region = "ap-northeast-2"
-availability_zone = ["ap-northeast-2a"]
-project_name = "myproject"
-ec2_instance_type = "t2.micro"
-aws_ec2_key_pair_key_name = "ec2_key_pair"
-rds_master_username = "postgres"
-rds_master_password = "rootroot"
-rds_db_engine = "postgres"
-rds_engine_version = "16.3"
-rds_instance_class = "db.t2.micro"
-elastic_cache_node_type = "cache.t2.micro"
-elastic_cache_engine = "redis"

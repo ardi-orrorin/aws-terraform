@@ -13,6 +13,7 @@ variable "aws_secret_key" {
 variable "allow_ssh_ip" {
     type = string
     description = "SSH 접속을 허용할 IP"
+    sensitive = true
 }
 
 variable "region" {
@@ -81,5 +82,4 @@ variable "elastic_cache_node_type" {
 variable "elastic_cache_engine" {
     type = string
     description = "Elastic Cache Engine"
-
 }

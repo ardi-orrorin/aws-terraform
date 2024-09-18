@@ -62,11 +62,11 @@ module "elastic_cache" {
 }
 
 # module "cloudfront" {
-#   depends_on = [ module.s3 ]
-#   source = "./module/cloudfront"
-#   project_name = var.project_name
+#   depends_on         = [ module.s3 ]
+#   source             = "./module/cloudfront"
+#   project_name       = var.project_name
 #   bucket_domain_name = module.s3.bucket_domain_name
-#   bucket_acl = module.s3.bucket_acl
-#   bucket_id = module.s3.id
-#   availability_zone = var.availability_zone
+#   bucket_acl         = module.s3.bucket_acl
+#   bucket_id          = module.s3.id
+#   availability_zone  = var.availability_zone
 # }
