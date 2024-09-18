@@ -1,6 +1,6 @@
 
 output "public_ip" {
-    value = aws_instance.instance_test.public_ip
+    value = aws_instance.default.public_ip
     description = "퍼블릭 아이피 주소"
 }
 

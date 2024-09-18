@@ -7,13 +7,13 @@ resource "aws_security_group" "example_security_group" {
     }   
 }
 
-resource "aws_vpc_security_group_ingress_rule" "allow_ssh_myself_ipv4" {
-    security_group_id = aws_security_group.example_security_group.id
-    to_port = 22
-    from_port = 22
-    ip_protocol = "tcp"
-    cidr_ipv4 = var.myself_ip
-}
+# resource "aws_vpc_security_group_ingress_rule" "allow_ssh_myself_ipv4" {
+#     security_group_id = aws_security_group.example_security_group.id
+#     to_port = 22
+#     from_port = 22
+#     ip_protocol = "tcp"
+#     cidr_ipv4 = var.myself_ip
+# }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_myself_ipv4" {
     security_group_id = aws_security_group.example_security_group.id

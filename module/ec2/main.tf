@@ -1,6 +1,14 @@
-resource "local_sensitive_file" "aws_secret_key" {
+resource "aws_vpc_security_group_ingress_rule" "allow_ssh_myself_ipv4" {
+    security_group_id = aws_security_group.example_security_group.id
+    to_port = 22
+    from_port = 22
+    ip_protocol = "tcp"
+    cidr_ipv4 = var.myself_ip
+}
+
+resource "local_sensitive_file" "key_pair_secret_key" {
     content = var.private_key
-    filename = "${path.module}/aws_secret_key.pem"
+    filename = "${path.module}/key_pair_secret_key.pem"
 }
 
 resource "aws_default_vpc" "default" {
@@ -25,7 +33,7 @@ data "aws_ami" "ubuntu_latest" {
     }
 }
 
-resource "aws_instance" "instance_test" {
+resource "aws_instance" "default" {
     depends_on = [ aws_default_vpc.default ]
     ami = data.aws_ami.ubuntu_latest.id
     
@@ -61,14 +69,13 @@ resource "aws_instance" "instance_test" {
     connection {
         type = "ssh"
         user = "ubuntu"
-        private_key = file(local_sensitive_file.aws_secret_key.filename)
+        private_key = file(local_sensitive_file.key_pair_secret_key.filename)
         host = self.public_ip
     }
 
     provisioner "file" {
         source = "./module/ec2/user_data"
         destination = "data"
-        
     }
 
     provisioner "remote-exec" {
@@ -80,4 +87,11 @@ resource "aws_instance" "instance_test" {
             "./data/swap-setting.sh"
         ]
     }
+}
+
+removed {
+  from = aws_vpc_security_group_ingress_rule.allow_ssh_myself_ipv4
+  lifecycle {
+    destroy = true
+  }
 }

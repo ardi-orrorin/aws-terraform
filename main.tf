@@ -26,6 +26,7 @@ module "ec2" {
   region = var.region
   availability_zone = var.availability_zone
   private_key = var.private_key
+  myself_ip = var.myself_ip
 }
 
 

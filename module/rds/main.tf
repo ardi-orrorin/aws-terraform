@@ -12,7 +12,7 @@ resource "aws_db_instance" "default" {
     availability_zone = "${var.region}a"
     multi_az = false
     publicly_accessible = false
-    storage_encrypted = true
+    storage_encrypted = false
     backup_retention_period = 7
     delete_automated_backups = true
 
