@@ -18,7 +18,7 @@ variable "key_pair_name" {
     type = string
 }
 
-variable "public_key" {
+variable "private_key" {
     type = string
 }
 

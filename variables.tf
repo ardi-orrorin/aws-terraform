@@ -40,9 +40,10 @@ variable "aws_ec2_key_pair_key_name" {
     description = "AWS EC2 Key Pair"
 }
 
-variable "public_key" {
+variable "private_key" {
     type = string
-    description = "Public Key"
+    description = "Private Key"
+    sensitive = true
 }
 
 variable "rds_master_username" {
@@ -53,6 +54,7 @@ variable "rds_master_username" {
 variable "rds_master_password" {
     type = string
     description = "RDS Master Password"
+    sensitive = true
 }
 
 variable "rds_db_engine" {
