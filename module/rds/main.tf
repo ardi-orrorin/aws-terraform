@@ -20,7 +20,6 @@ resource "aws_db_instance" "default" {
         Name = "${var.project_name}-rds"
     }
     # iops = "gp3"
-
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_postgres_ipv4" {

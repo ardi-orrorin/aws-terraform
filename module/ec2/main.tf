@@ -1,7 +1,10 @@
 resource "local_sensitive_file" "key_pair_secret_key" {
     content  = var.private_key
-    filename = "${path.module}/key_pair_secret_key.pem"
-    
+    filename = "${path.module}/key_pair_secret_key.pem"   
+}
+
+output "key_pair_secret_key" {
+    value = local_sensitive_file.key_pair_secret_key.filename 
 }
 
 resource "aws_default_vpc" "default" {
@@ -13,7 +16,7 @@ resource "aws_default_vpc" "default" {
 data "aws_subnets" "aws_subnet_default" {
     filter {
         name   = "availability-zone"
-        values = ["ap-northeast-2a"]
+        values = var.availability_zone
     }
 }
 
@@ -60,11 +63,11 @@ resource "aws_instance" "default" {
         type        = "ssh"
         user        = "ubuntu"
         host        = self.public_ip
-        private_key = file(local_sensitive_file.key_pair_secret_key.filename)
+        private_key = file("./${local_sensitive_file.key_pair_secret_key.filename}")
     }
 
     provisioner "file" {
-        source      = "./module/ec2/user_data"
+        source      = "${path.module}/user_data"
         destination = "data"
     }
 
