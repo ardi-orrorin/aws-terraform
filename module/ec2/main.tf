@@ -1,6 +1,6 @@
 resource "local_sensitive_file" "aws_secret_key" {
     content = var.private_key
-    filename = "aws_secret_key.pem"
+    filename = "${path.module}/aws_secret_key.pem"
 }
 
 resource "aws_default_vpc" "default" {
@@ -61,7 +61,7 @@ resource "aws_instance" "instance_test" {
     connection {
         type = "ssh"
         user = "ubuntu"
-        private_key = "${path.module}/aws_secret_key.pem"
+        private_key = file(local_sensitive_file.aws_secret_key.filename)
         host = self.public_ip
     }
 
