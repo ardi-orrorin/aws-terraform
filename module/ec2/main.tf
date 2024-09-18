@@ -88,10 +88,3 @@ resource "aws_instance" "default" {
         ]
     }
 }
-
-removed {
-  from = aws_vpc_security_group_ingress_rule.allow_ssh_myself_ipv4
-  lifecycle {
-    destroy = true
-  }
-}
