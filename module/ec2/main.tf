@@ -1,14 +1,7 @@
-resource "aws_vpc_security_group_ingress_rule" "allow_ssh_myself_ipv4" {
-    security_group_id = var.security_group_id
-    to_port = 22
-    from_port = 22
-    ip_protocol = "tcp"
-    cidr_ipv4 = var.myself_ip
-}
-
 resource "local_sensitive_file" "key_pair_secret_key" {
-    content = var.private_key
+    content  = var.private_key
     filename = "${path.module}/key_pair_secret_key.pem"
+    
 }
 
 resource "aws_default_vpc" "default" {
@@ -19,33 +12,30 @@ resource "aws_default_vpc" "default" {
 
 data "aws_subnets" "aws_subnet_default" {
     filter {
-        name = "availability-zone"
+        name   = "availability-zone"
         values = ["ap-northeast-2a"]
     }
 }
 
 data "aws_ami" "ubuntu_latest" {
     most_recent = true
-    owners = ["099720109477"]
+    owners      = ["099720109477"]
     filter {
-        name = "name"
+        name   = "name"
         values = ["ubuntu/images/hvm-ssd/ubuntu-*-amd64-server-*"]
     }
 }
 
 resource "aws_instance" "default" {
-    depends_on = [ aws_default_vpc.default ]
-    ami = data.aws_ami.ubuntu_latest.id
-    
+    depends_on        = [ aws_default_vpc.default ]
+    ami               = data.aws_ami.ubuntu_latest.id
     availability_zone = "${var.region}a"
-    
-    instance_type = var.instance_type
-    associate_public_ip_address = true
-    
-    key_name = var.key_pair_name
-    subnet_id = data.aws_subnets.aws_subnet_default.ids[0]
-    security_groups = [var.security_group_id]
+    instance_type     = var.instance_type
+    key_name          = var.key_pair_name
+    subnet_id         = data.aws_subnets.aws_subnet_default.ids[0]
+    security_groups   = [var.security_group_id]
 
+    associate_public_ip_address = true
     ebs_block_device {
         device_name = "/dev/sda1"
         volume_size = 20
@@ -59,7 +49,7 @@ resource "aws_instance" "default" {
     lifecycle {
         # prevent_destroy = true
         create_before_destroy = false
-        ignore_changes = [ ebs_block_device ]
+        ignore_changes        = [ ebs_block_device ]
     }
 
     tags = {
@@ -67,14 +57,14 @@ resource "aws_instance" "default" {
     }
 
     connection {
-        type = "ssh"
-        user = "ubuntu"
+        type        = "ssh"
+        user        = "ubuntu"
+        host        = self.public_ip
         private_key = file(local_sensitive_file.key_pair_secret_key.filename)
-        host = self.public_ip
     }
 
     provisioner "file" {
-        source = "./module/ec2/user_data"
+        source      = "./module/ec2/user_data"
         destination = "data"
     }
 

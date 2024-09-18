@@ -27,8 +27,8 @@ resource "aws_elasticache_cluster" "default" {
 
 resource "aws_vpc_security_group_ingress_rule" "allow_redis_ipv4" {
     security_group_id = var.security_group_id
-    to_port = 6379
-    from_port = 6379
-    ip_protocol = "tcp"
-    cidr_ipv4 = "0.0.0.0/0"
+    to_port           = 6379
+    from_port         = 6379
+    ip_protocol       = "tcp"
+    cidr_ipv4         = "0.0.0.0/0"
 }

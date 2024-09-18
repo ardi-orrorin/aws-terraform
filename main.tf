@@ -5,60 +5,59 @@ provider "aws" {
 }
 
 module "key_pair" {
-    source = "./module/key_pair"
-    aws_ec2_key_pair_key_name = var.aws_ec2_key_pair_key_name
+    source       = "./module/key_pair"
+    key_name     = var.aws_ec2_key_pair_key_name
     project_name = var.project_name
 }
 
 module "security_group" {
-  source = "./module/security_group"
+  source       = "./module/security_group"
   project_name = var.project_name
-  myself_ip = var.myself_ip
+  allow_ssh_ip = var.allow_ssh_ip
 }
 
 module "ec2" {
-  depends_on = [ module.security_group ]
-  source = "./module/ec2"
+  depends_on        = [ module.security_group ]
+  source            = "./module/ec2"
   security_group_id = module.security_group.id
-  key_pair_name = module.key_pair.key_pair_name
-  instance_type = var.ec2_instance_type
-  project_name = var.project_name
-  region = var.region
+  key_pair_name     = module.key_pair.key_pair_name
+  instance_type     = var.ec2_instance_type
+  project_name      = var.project_name
+  region            = var.region
   availability_zone = var.availability_zone
-  private_key = var.private_key
-  myself_ip = var.myself_ip
+  private_key       = var.private_key
 }
 
 
 module "rds" {
-  depends_on = [ module.ec2 ]
-  source = "./module/rds"
-  project_name = var.project_name
-  master_username = var.rds_master_username
-  master_password = var.rds_master_password
-  db_engine = var.rds_db_engine
-  engine_version = var.rds_engine_version
-  instance_class = var.rds_instance_class
-  region = var.region
+  depends_on        = [ module.ec2 ]
+  source            = "./module/rds"
+  project_name      = var.project_name
+  master_username   = var.rds_master_username
+  master_password   = var.rds_master_password
+  db_engine         = var.rds_db_engine
+  engine_version    = var.rds_engine_version
+  instance_class    = var.rds_instance_class
+  region            = var.region
   security_group_id = module.security_group.id
   availability_zone = var.availability_zone
 }
 
 module "s3" {
-  depends_on = [ module.security_group ]
-  source = "./module/s3"
-  project_name = var.project_name
+  depends_on        = [ module.security_group ]
+  source            = "./module/s3"
+  project_name      = var.project_name
   availability_zone = var.availability_zone
 }
 
 module "elastic_cache" {
-  depends_on = [ module.security_group ]
-  source = "./module/elastic_cache"
-  project_name = var.project_name
-  region = var.region
+  depends_on        = [ module.security_group ]
+  source            = "./module/elastic_cache"
+  project_name      = var.project_name
+  region            = var.region
   security_group_id = module.security_group.id
-  node_type = var.elastic_cache_node_type
-  engine = var.elastic_cache_engine
+  node_type         = var.elastic_cache_node_type
+  engine            = var.elastic_cache_engine
   availability_zone = var.availability_zone
 }
 

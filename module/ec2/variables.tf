@@ -25,7 +25,3 @@ variable "private_key" {
 variable "project_name" {
     type = string
 }
-
-variable "myself_ip" {
-    type = string
-}

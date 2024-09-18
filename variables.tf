@@ -10,9 +10,9 @@ variable "aws_secret_key" {
     description = "AWS Secret"
 }
 
-variable "myself_ip" {
+variable "allow_ssh_ip" {
     type = string
-    description = "Myself IP"
+    description = "SSH 접속을 허용할 IP"
 }
 
 variable "region" {

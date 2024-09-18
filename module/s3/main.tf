@@ -2,7 +2,7 @@ data "aws_iam_policy_document" "default" {
     version = "2012-10-17"
 
     statement {
-        sid = "Statement1"
+        sid    = "Statement1"
         effect = "Allow"
         
         actions = [ 
@@ -10,7 +10,7 @@ data "aws_iam_policy_document" "default" {
         ]
 
         principals {
-            type = "*"
+            type        = "*"
             identifiers = [
                 "*"
             ]
@@ -45,9 +45,9 @@ resource "aws_s3_bucket_public_access_block" "default" {
 }
 
 resource "aws_s3_bucket_policy" "default" {
-    bucket = aws_s3_bucket.default.id
     depends_on = [ resource.aws_s3_bucket_public_access_block.default ]
-    policy = data.aws_iam_policy_document.default.json
+    bucket     = aws_s3_bucket.default.id
+    policy     = data.aws_iam_policy_document.default.json
 }
 
 resource "aws_s3_bucket_cors_configuration" "default" {

@@ -1,4 +1,4 @@
-variable "aws_ec2_key_pair_key_name" {
+variable "key_name" {
     type = string
 }
 
