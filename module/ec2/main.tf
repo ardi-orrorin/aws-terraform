@@ -43,7 +43,6 @@ resource "aws_instance" "instance_test" {
         }
     }
 
-
     lifecycle {
         # prevent_destroy = true
         create_before_destroy = false
