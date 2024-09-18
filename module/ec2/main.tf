@@ -1,5 +1,5 @@
 resource "aws_vpc_security_group_ingress_rule" "allow_ssh_myself_ipv4" {
-    security_group_id = aws_security_group.example_security_group.id
+    security_group_id = var.security_group_id
     to_port = 22
     from_port = 22
     ip_protocol = "tcp"
