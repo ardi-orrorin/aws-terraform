@@ -1,7 +1,19 @@
-variable "project_name" {}
+variable "project_name" {
+    type = string
+}
 
-variable "bucket_domain_name" {}
+variable "bucket_domain_name" {
+    type = string
+}
 
-variable "bucket_acl" {}
+variable "bucket_acl" {
+    type = string
+}
 
-variable "bucket_id" {}
+variable "bucket_id" {
+    type = string
+}
+
+variable "availability_zone" {
+    type = list(string)
+}

@@ -1,15 +1,35 @@
-variable "project_name" {}
+variable "project_name" {
+    type = string
+}
 
-variable "master_username" {}
+variable "master_username" {
+    type = string
+}
 
-variable "master_password" {}
+variable "master_password" {
+    type = string
+}
 
-variable "db_engine" {}
+variable "db_engine" {
+    type = string
+}
 
-variable "engine_version" {}
+variable "engine_version" {
+    type = string
+}
 
-variable "instance_class" {}
+variable "instance_class" {
+    type = string
+}
 
-variable "region" {}
+variable "region" {
+    type = string
+}
 
-variable "security_group_id" {}
+variable "availability_zone" {
+    type = list(string)
+}
+
+variable "security_group_id" {
+    type = string
+}

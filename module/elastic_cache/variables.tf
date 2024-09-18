@@ -6,22 +6,19 @@ variable "availability_zone" {
     type = list(string)
 }
 
-variable "instance_type" {
-    type = string
-}
-
 variable "security_group_id" {
-    type = string
-}
-
-variable "key_pair_name" {
-    type = string
-}
-
-variable "public_key" {
     type = string
 }
 
 variable "project_name" {
     type = string
 }
+
+variable "node_type" {
+    type = string
+}
+
+variable "engine" {
+    type = string
+}
+

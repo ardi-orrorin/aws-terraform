@@ -23,3 +23,11 @@ resource "aws_db_instance" "default" {
     # iops = "gp3"
 
 }
+
+resource "aws_vpc_security_group_ingress_rule" "allow_postgres_ipv4" {
+    security_group_id = var.security_group_id
+    to_port = 5432
+    from_port = 5432
+    ip_protocol = "tcp"
+    cidr_ipv4 = "0.0.0.0/0"
+}

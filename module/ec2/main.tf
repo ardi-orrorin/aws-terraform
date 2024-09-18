@@ -61,7 +61,7 @@ resource "aws_instance" "instance_test" {
     }
 
     provisioner "file" {
-        source = "./module/ec2/data"
+        source = "./module/ec2/user_data"
         destination = "data"
         
     }
