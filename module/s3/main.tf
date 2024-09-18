@@ -24,10 +24,10 @@ data "aws_iam_policy_document" "default" {
 }
 
 resource "aws_s3_bucket" "default" {
-  bucket = "${var.project_name}-bucket"
+  bucket = "${var.project_name}-prod-bucket"
 
   tags = {
-    Name        = "${var.project_name}-bucket"
+    Name        = "${var.project_name}-s3-bucket"
     Environment = "Default"
   }
 }

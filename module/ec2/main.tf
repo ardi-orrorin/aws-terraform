@@ -1,8 +1,3 @@
-resource "local_sensitive_file" "key_pair_secret_key" {
-    content  = var.private_key
-    filename = "${path.module}/${var.key_pair_name}.pem"
-}
-
 resource "aws_default_vpc" "default" {
     tags = {
         Name = "${var.project_name}-vpc"
@@ -59,7 +54,7 @@ resource "aws_instance" "default" {
         type        = "ssh"
         user        = "ubuntu"
         host        = self.public_ip
-        private_key = file("${path.module}/${var.key_pair_name}.pem")
+        private_key = var.private_key
     }
 
     provisioner "file" {

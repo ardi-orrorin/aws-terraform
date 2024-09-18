@@ -28,26 +28,26 @@ module "ec2" {
   private_key       = var.private_key
 }
 
-module "rds" {
-  depends_on        = [ module.ec2 ]
-  source            = "./module/rds"
-  project_name      = var.project_name
-  master_username   = var.rds_master_username
-  master_password   = var.rds_master_password
-  db_engine         = var.rds_db_engine
-  engine_version    = var.rds_engine_version
-  instance_class    = var.rds_instance_class
-  region            = var.region
-  security_group_id = module.security_group.id
-  availability_zone = var.availability_zone
-}
+# module "rds" {
+#   depends_on        = [ module.ec2 ]
+#   source            = "./module/rds"
+#   project_name      = var.project_name
+#   master_username   = var.rds_master_username
+#   master_password   = var.rds_master_password
+#   db_engine         = var.rds_db_engine
+#   engine_version    = var.rds_engine_version
+#   instance_class    = var.rds_instance_class
+#   region            = var.region
+#   security_group_id = module.security_group.id
+#   availability_zone = var.availability_zone
+# }
 
-module "s3" {
-  depends_on        = [ module.security_group ]
-  source            = "./module/s3"
-  project_name      = var.project_name
-  availability_zone = var.availability_zone
-}
+# module "s3" {
+#   depends_on        = [ module.security_group ]
+#   source            = "./module/s3"
+#   project_name      = var.project_name
+#   availability_zone = var.availability_zone
+# }
 
 # module "elastic_cache" {
 #   depends_on        = [ module.security_group ]
