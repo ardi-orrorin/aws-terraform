@@ -47,6 +47,12 @@ variable "private_key" {
     sensitive = true
 }
 
+variable "public_key" {
+    type = string
+    description = "Public Key"
+    sensitive = true
+}
+
 variable "rds_master_username" {
     type = string
     description = "RDS Master Username"

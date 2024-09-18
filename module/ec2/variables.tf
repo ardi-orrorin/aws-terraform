@@ -25,3 +25,7 @@ variable "private_key" {
 variable "project_name" {
     type = string
 }
+
+variable "volume_id" {
+    type = string
+}

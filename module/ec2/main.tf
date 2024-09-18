@@ -30,13 +30,16 @@ resource "aws_instance" "default" {
     security_groups   = [var.security_group_id]
 
     associate_public_ip_address = true
-    ebs_block_device {
-        device_name = "/dev/sda1"
-        volume_size = 20
+
+    tags = {
+        Name = "${var.project_name}-instance"
+    }
+
+    root_block_device {
+        volume_size = 10
         volume_type = "gp3"
-        delete_on_termination = true
         tags = {
-            Name = "${var.project_name}-ebs_volume"
+            Name = "${var.project_name}-root-volume"
         }
     }
 
@@ -44,10 +47,6 @@ resource "aws_instance" "default" {
         # prevent_destroy = true
         create_before_destroy = false
         ignore_changes        = [ ebs_block_device ]
-    }
-
-    tags = {
-        Name = "${var.project_name}-instance"
     }
 
     connection {
