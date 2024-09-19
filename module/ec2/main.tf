@@ -27,7 +27,7 @@ resource "aws_instance" "default" {
     instance_type     = var.instance_type
     key_name          = var.key_pair_name
     subnet_id         = data.aws_subnets.aws_subnet_default.ids[0]
-    security_groups   = [var.security_group_id]
+    security_groups   = var.security_group_ids
 
     associate_public_ip_address = true
 
@@ -45,8 +45,8 @@ resource "aws_instance" "default" {
 
     lifecycle {
         # prevent_destroy = true
-        create_before_destroy = false
-        ignore_changes        = [ ebs_block_device ]
+        create_before_destroy = true
+        ignore_changes        = [security_groups]
     }
 
     connection {

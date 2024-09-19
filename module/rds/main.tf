@@ -5,8 +5,8 @@ resource "aws_db_instance" "default" {
     engine_version           = var.engine_version
     username                 = var.master_username
     password                 = var.master_password
-    allocated_storage        = 10
-    max_allocated_storage    = 20
+    allocated_storage        = 20
+    max_allocated_storage    = 30
     skip_final_snapshot      = true
     apply_immediately        = true
     storage_type             = "gp3"
