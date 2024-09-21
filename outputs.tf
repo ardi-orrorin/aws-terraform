@@ -2,12 +2,16 @@ output "security_group" {
   value = module.security_group.id
 }
 
-output "ebs" {
-  value = module.ebs
-}
+# output "ebs" {
+#   value = module.ebs
+# }
 
 output "ec2" {
   value = module.ec2
+}
+
+output "eip" {
+  value = module.eip
 }
 
 output "rds" {
@@ -24,7 +28,7 @@ output "elastic_cache" {
 
 output "acm" {
   value = module.acm
-} 
+}
 
 # output "cloudfront" {
 #   value = module.cloudfront

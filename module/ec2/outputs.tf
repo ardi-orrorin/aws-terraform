@@ -4,11 +4,6 @@ output "public_ip" {
     description = "퍼블릭 아이피 주소"
 }
 
-output "ssh_command" {
-    value = "ssh -i ${var.key_pair_name}.pem ubuntu@${aws_instance.default.public_ip}"
-    description = "SSH 접속 명령어"
-}
-
-output "ec2" {
-  value = aws_instance.default
+output "ec2_id" {
+  value = aws_instance.default.id
 }

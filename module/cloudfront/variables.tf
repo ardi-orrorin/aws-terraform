@@ -6,10 +6,6 @@ variable "bucket_domain_name" {
     type = string
 }
 
-variable "bucket_acl" {
-    type = string
-}
-
 variable "bucket_id" {
     type = string
 }

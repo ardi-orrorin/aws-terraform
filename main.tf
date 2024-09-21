@@ -17,13 +17,13 @@ module "security_group" {
   allow_ssh_ip = var.allow_ssh_ip
 }
 
-# ec2 인스턴스 생성 시 사용할 목적
-module "ebs" {
-  source            = "./module/ebs"
-  project_name      = var.project_name
-  availability_zone = var.availability_zone
-  region            = var.region
-}
+# # ec2 인스턴스 생성 시 사용할 목적
+# module "ebs" {
+#   source            = "./module/ebs"
+#   project_name      = var.project_name
+#   availability_zone = var.availability_zone
+#   region            = var.region
+# }
 
 module "ec2" {
   depends_on         = [ module.security_group ]
@@ -35,6 +35,13 @@ module "ec2" {
   region             = var.region
   availability_zone  = var.availability_zone
   private_key        = var.private_key
+}
+
+module "eip" {
+  depends_on   = [ module.ec2 ]
+  source       = "./module/eip"
+  project_name = var.project_name
+  ec2_instance_id = module.ec2.ec2_id
 }
 
 module "rds" {
@@ -79,7 +86,6 @@ module "acm" {
 #   source             = "./module/cloudfront"
 #   project_name       = var.project_name
 #   bucket_domain_name = module.s3.bucket_domain_name
-#   bucket_acl         = module.s3.bucket_acl
 #   bucket_id          = module.s3.id
 #   availability_zone  = var.availability_zone
 # }
