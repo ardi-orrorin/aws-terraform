@@ -89,3 +89,8 @@ variable "elastic_cache_engine" {
     type = string
     description = "Elastic Cache Engine"
 }
+
+variable "public_domain_name" {
+    type = string
+    description = "Public Domain Name (www.example.com) http 제외"
+}
