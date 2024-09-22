@@ -29,11 +29,15 @@ resource "aws_instance" "default" {
     subnet_id         = data.aws_subnets.aws_subnet_default.ids[0]
     security_groups   = var.security_group_ids
 
+    
+
     associate_public_ip_address = true
 
     tags = {
         Name = "${var.project_name}-instance"
     }
+
+    user_data = file("${path.module}/user_data/install.sh")
 
     root_block_device {
         volume_size = 10
@@ -49,25 +53,25 @@ resource "aws_instance" "default" {
         ignore_changes        = [security_groups]
     }
 
-    connection {
-        type        = "ssh"
-        user        = "ubuntu"
-        host        = self.public_ip
-        private_key = var.private_key
-    }
+    # connection {
+    #     type        = "ssh"
+    #     user        = "ubuntu"
+    #     host        = self.public_ip
+    #     private_key = var.private_key
+    # }
 
-    provisioner "file" {
-        source      = "${path.module}/user_data"
-        destination = "data"
-    }
+    # provisioner "file" {
+    #     source      = "${path.module}/user_data"
+    #     destination = "data"
+    # }
 
-    provisioner "remote-exec" {
-        inline = [
-            "chmod +x ./data/install_docker.sh",
-            "./data/install_docker.sh",
-            "sudo docker swarm init",
-            "chmod +x ./data/swap-setting.sh",
-            "./data/swap-setting.sh"
-        ]
-    }
+    # provisioner "remote-exec" {
+    #     inline = [
+    #         "chmod +x ./data/install_docker.sh",
+    #         "./data/install_docker.sh",
+    #         "sudo docker swarm init",
+    #         "chmod +x ./data/swap-setting.sh",
+    #         "./data/swap-setting.sh"
+    #     ]
+    # }
 }

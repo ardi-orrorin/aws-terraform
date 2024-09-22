@@ -34,7 +34,7 @@ module "ec2" {
   project_name       = var.project_name
   region             = var.region
   availability_zone  = var.availability_zone
-  private_key        = var.private_key
+  # private_key        = var.private_key
 }
 
 module "eip" {

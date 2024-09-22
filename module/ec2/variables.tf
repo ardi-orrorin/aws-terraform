@@ -18,9 +18,9 @@ variable "key_pair_name" {
     type = string
 }
 
-variable "private_key" {
-    type = string
-}
+# variable "private_key" {
+#     type = string
+# }
 
 variable "project_name" {
     type = string
