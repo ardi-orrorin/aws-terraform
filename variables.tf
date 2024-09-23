@@ -41,11 +41,11 @@ variable "aws_ec2_key_pair_key_name" {
     description = "AWS EC2 Key Pair"
 }
 
-variable "private_key" {
-    type = string
-    description = "Private Key"
-    sensitive = true
-}
+# variable "private_key" {
+#     type = string
+#     description = "Private Key"
+#     sensitive = true
+# }
 
 variable "public_key" {
     type = string
@@ -93,4 +93,12 @@ variable "elastic_cache_engine" {
 variable "public_domain_name" {
     type = string
     description = "Public Domain Name (www.example.com) http 제외"
+}
+
+variable "ec2_allow_ip" {
+    type = map(object({
+        ip   = string
+        port = number
+    }))
+    description = "EC2 접속을 허용할 IP"
 }

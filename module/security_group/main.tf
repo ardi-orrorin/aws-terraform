@@ -15,20 +15,21 @@ resource "aws_vpc_security_group_ingress_rule" "allow_ssh_ipv4" {
     cidr_ipv4         = var.allow_ssh_ip
 }
 
-resource "aws_vpc_security_group_ingress_rule" "allow_all_ipv4" {
-    security_group_id = aws_security_group.example_security_group.id
-    to_port           = 80
-    from_port         = 80
-    ip_protocol       = "tcp"
-    cidr_ipv4         = "0.0.0.0/0"
-}
 
-resource "aws_vpc_security_group_ingress_rule" "allow_tls_all_ipv4" {
+resource "aws_vpc_security_group_ingress_rule" "allow_ipv4" {
+    for_each = {
+        for key, value in var.allow_ip : key => value
+        if value.port != null && value.port != null
+    }
     security_group_id = aws_security_group.example_security_group.id
-    to_port           = 443
-    from_port         = 443
+    to_port           = each.value.port
+    from_port         = each.value.port
     ip_protocol       = "tcp"
-    cidr_ipv4         = "0.0.0.0/0"
+    cidr_ipv4         = each.value.ip
+
+    tags = {
+        Name = each.key
+    }
 }
 
 # 모든 트래픽을 허용하는 규칙
@@ -40,20 +41,22 @@ resource "aws_vpc_security_group_ingress_rule" "allow_tls_all_ipv4" {
 #     cidr_ipv4 = var.myself_ip
 # }
 
-resource "aws_vpc_security_group_egress_rule" "allow_all_ipv4" {
-    security_group_id = aws_security_group.example_security_group.id
-    to_port           = 80
-    from_port         = 80
-    ip_protocol       = "tcp"
-    cidr_ipv4         = "0.0.0.0/0"
-}
 
-resource "aws_vpc_security_group_egress_rule" "allow_all_tls_ipv4" {
+
+resource "aws_vpc_security_group_egress_rule" "allow_tls_ipv4" {
+    for_each = {
+        for key, value in var.allow_ip : key => value
+        if value.port != null && value.port != null
+    }
     security_group_id = aws_security_group.example_security_group.id
-    to_port           = 443
-    from_port         = 443
+    to_port           = each.value.port
+    from_port         = each.value.port
     ip_protocol       = "tcp"
-    cidr_ipv4         = "0.0.0.0/0"
+    cidr_ipv4         = each.value.ip
+
+    tags = {
+        Name = each.key
+    }
 }
 
 # 모든 트래픽을 허용하는 규칙
@@ -64,3 +67,4 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_tls_ipv4" {
 #     ip_protocol = "-1"
 #     cidr_ipv4 = "0.0.0.0/0"
 # }
+

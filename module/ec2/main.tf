@@ -37,7 +37,7 @@ resource "aws_instance" "default" {
         Name = "${var.project_name}-instance"
     }
 
-    user_data = file("${path.module}/user_data/install.sh")
+    user_data = file("${path.module}/user_data.sh")
 
     root_block_device {
         volume_size = 10
