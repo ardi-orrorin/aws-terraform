@@ -1,3 +1,16 @@
+data "aws_subnets" "default" {
+    filter {
+        name   = "availability-zone"
+        values = var.availability_zone
+    }
+}
+
+resource "aws_db_subnet_group" "default" {
+  name = "${var.project_name}-rds-subnet-group"
+  subnet_ids = data.aws_subnets.default.ids
+  description = "Subnet group for ${var.project_name}-rds"
+}
+
 resource "aws_db_instance" "default" {
     identifier               = "${var.project_name}-rds"
     instance_class           = var.instance_class
@@ -17,7 +30,8 @@ resource "aws_db_instance" "default" {
     backup_retention_period  = 7
     delete_automated_backups = true
     vpc_security_group_ids   = [var.security_group_id]
-
+    
+    db_subnet_group_name     = aws_db_subnet_group.default.name
 
     tags = {
         Name = "${var.project_name}-rds"

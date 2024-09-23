@@ -47,7 +47,7 @@ module "eip" {
 }
 
 module "rds" {
-  depends_on        = [ module.ec2 ]
+  depends_on        = [ module.ec2, module.security_group ]
   source            = "./module/rds"
   project_name      = var.project_name
   master_username   = var.rds_master_username
@@ -57,7 +57,7 @@ module "rds" {
   instance_class    = var.rds_instance_class
   region            = var.region
   security_group_id = module.security_group.id
-  availability_zone = var.availability_zone
+  availability_zone = var.db_subnet_availability_zone
 }
 
 module "s3" {

@@ -2,9 +2,9 @@ output "security_group" {
   value = module.security_group.id
 }
 
-output "ebs" {
-  value = module.ebs
-}
+# output "ebs" {
+#   value = module.ebs
+# }
 
 output "ec2" {
   value = module.ec2

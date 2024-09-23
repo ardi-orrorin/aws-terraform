@@ -26,6 +26,11 @@ variable "availability_zone" {
     description = "가용 영역"
 }
 
+variable "db_subnet_availability_zone" {
+    type = list(string)
+    description = "RDS 가용 영역"
+}
+
 variable "project_name" {
     type = string
     description = "프로젝트 이름"

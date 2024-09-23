@@ -1,5 +1,5 @@
 output "id" {
-    value = aws_security_group.example_security_group.id
+    value = aws_security_group.default.id
 }
 
 output "ssh_ingress_rule" {
@@ -15,4 +15,8 @@ output "ingress_rules" {
 output "egress_rules" {
     value = aws_vpc_security_group_egress_rule.allow_tls_ipv4
     sensitive = true
+}
+
+output "aws_default_vpc_id" {
+  value = aws_security_group.default.vpc_id
 }

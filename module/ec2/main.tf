@@ -1,9 +1,3 @@
-resource "aws_default_vpc" "default" {
-    tags = {
-        Name = "${var.project_name}-vpc"
-    }
-}
-
 data "aws_subnets" "aws_subnet_default" {
     filter {
         name   = "availability-zone"
@@ -21,15 +15,12 @@ data "aws_ami" "ubuntu_latest" {
 }
 
 resource "aws_instance" "default" {
-    depends_on        = [ aws_default_vpc.default ]
     ami               = data.aws_ami.ubuntu_latest.id
     availability_zone = "${var.region}a"
     instance_type     = var.instance_type
     key_name          = var.key_pair_name
     subnet_id         = data.aws_subnets.aws_subnet_default.ids[0]
     security_groups   = var.security_group_ids
-
-    
 
     associate_public_ip_address = true
 
