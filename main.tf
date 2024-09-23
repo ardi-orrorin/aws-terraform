@@ -12,10 +12,11 @@ module "key_pair" {
 }
 
 module "security_group" {
-  source       = "./module/security_group"
-  project_name = var.project_name
-  allow_ssh_ip = var.allow_ssh_ip
-  allow_ip = var.ec2_allow_ip
+  source           = "./module/security_group"
+  project_name     = var.project_name
+  allow_ssh_ip     = var.allow_ssh_ip
+  ingress_allow_ip = var.ec2_ingress_allow_ip
+  egress_allow_ip  = var.ec2_egress_allow_ip
 }
 
 # # ec2 인스턴스 생성 시 사용할 목적

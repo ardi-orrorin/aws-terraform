@@ -18,7 +18,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_ssh_ipv4" {
 
 resource "aws_vpc_security_group_ingress_rule" "allow_ipv4" {
     for_each = {
-        for key, value in var.allow_ip : key => value
+        for key, value in var.ingress_allow_ip : key => value
         if value.port != null && value.port != null
     }
     security_group_id = aws_security_group.example_security_group.id
@@ -45,7 +45,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_ipv4" {
 
 resource "aws_vpc_security_group_egress_rule" "allow_tls_ipv4" {
     for_each = {
-        for key, value in var.allow_ip : key => value
+        for key, value in var.egress_allow_ip : key => value
         if value.port != null && value.port != null
     }
     security_group_id = aws_security_group.example_security_group.id

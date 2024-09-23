@@ -95,10 +95,18 @@ variable "public_domain_name" {
     description = "Public Domain Name (www.example.com) http 제외"
 }
 
-variable "ec2_allow_ip" {
+variable "ec2_ingress_allow_ip" {
     type = map(object({
         ip   = string
         port = number
     }))
-    description = "EC2 접속을 허용할 IP"
+    description = "EC2 인바운드 허용할 IP"
+}
+
+variable "ec2_egress_allow_ip" {
+    type = map(object({
+        ip   = string
+        port = number
+    }))
+    description = "EC2 아웃바운드 허용할 IP"
 }
